@@ -11,20 +11,25 @@ export function PokemonList({ isVisible }: PokemonListProps) {
 
   if (!isVisible) return <></>;
 
+  // Definição da função handleKeyDown que manipula eventos de teclado em um item da lista
   const handleKeyDown = (
-    e: React.KeyboardEvent<HTMLLIElement>,
-    index: number
+    e: React.KeyboardEvent<HTMLLIElement>, // O evento de teclado recebido, juntamente com o tipo do elemento alvo
+    index: number // O índice atual do item da lista que está focado ou selecionado
   ): void => {
     if (e.key === "ArrowDown") {
-      e.preventDefault();
+      // Verifica se a tecla pressionada foi a seta para baixo
+      e.preventDefault(); // Previne o comportamento padrão do navegador para este evento de teclado
+      // Calcula o próximo índice de forma circular. Se for o último item, volta para o primeiro
       const nextIndex = (index + 1) % (pokemons?.results?.length || 0);
-      setFocusedIndex(nextIndex);
+      setFocusedIndex(nextIndex); // Atualiza o índice do item focado para o próximo índice calculado
     } else if (e.key === "ArrowUp") {
-      e.preventDefault();
+      // Verifica se a tecla pressionada foi a seta para cima
+      e.preventDefault(); // Previne o comportamento padrão do navegador para este evento de teclado
+      // Calcula o índice anterior de forma circular. Se for o primeiro item, vai para o último
       const prevIndex =
         (index - 1 + (pokemons?.results?.length || 0)) %
         (pokemons?.results?.length || 0);
-      setFocusedIndex(prevIndex);
+      setFocusedIndex(prevIndex); // Atualiza o índice do item focado para o índice anterior calculado
     }
   };
 
